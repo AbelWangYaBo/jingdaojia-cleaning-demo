@@ -88,6 +88,9 @@ export default function AddressEdit() {
     }
     if (from === 'checkout') {
       navigate('/checkout', { replace: true });
+    } else if (from === 'detail') {
+      // 服务详情 → 地址列表 → 新增地址；保存后直接回到服务详情
+      navigate(-2);
     } else if (window.history.length > 1) {
       navigate(-1);
     } else {
@@ -228,7 +231,7 @@ export default function AddressEdit() {
 
       <div className="action-bar address-edit-bar">
         <button type="button" className="btn btn-primary btn-block" onClick={save}>
-          {from === 'checkout' ? '保存并使用此地址' : '保存地址'}
+          {from === 'addresses' ? '保存地址' : '保存并使用此地址'}
         </button>
       </div>
 

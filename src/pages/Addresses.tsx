@@ -13,6 +13,14 @@ export default function Addresses() {
   const navigate = useNavigate();
   const location = useLocation();
   const selectMode = params.get('select') === '1';
+  const fromParam = params.get('from');
+  const from =
+    fromParam === 'checkout' || fromParam === 'detail'
+      ? fromParam
+      : selectMode
+        ? 'checkout'
+        : 'addresses';
+  const returnLabel = from === 'checkout' ? '确认订单' : from === 'detail' ? '服务详情' : '上一页';
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
   const handleSelect = (id: string) => {
@@ -22,7 +30,7 @@ export default function Addresses() {
     else navigate('/checkout');
   };
 
-  const addPath = selectMode ? '/address-edit?from=checkout' : '/address-edit?from=addresses';
+  const addPath = selectMode ? `/address-edit?from=${from}` : '/address-edit?from=addresses';
 
   return (
     <div className="page addresses-page">
@@ -38,7 +46,7 @@ export default function Addresses() {
         {selectMode ? (
           <div className="address-select-tip">
             <Icon name="info" size={14} />
-            选择后将返回确认订单，可随时更换地址
+            选择后将返回{returnLabel}，可随时更换地址
           </div>
         ) : null}
 

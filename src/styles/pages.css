@@ -7333,3 +7333,19 @@
     font-size: 17px;
   }
 }
+
+/* login consent notes on guest gates */
+.orders-login-terms,
+.notices-terms {
+  margin-top: 7px;
+  text-align: center;
+  font-size: 8.5px;
+  line-height: 1.8;
+  color: var(--muted-2);
+}
+
+.orders-login-terms .inline-link,
+.notices-terms .inline-link {
+  font-size: 8.5px;
+  color: var(--brand-strong);
+}

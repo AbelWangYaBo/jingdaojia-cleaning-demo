@@ -330,7 +330,7 @@ export default function ServiceDetail() {
           <div className="detail-address-hint">
             <Icon name="pin" size={14} />
             当前服务地址：{defaultAddress.city} {defaultAddress.district} {defaultAddress.detail}
-            <Link to="/addresses" className="text-link">更换</Link>
+            <Link to="/addresses?select=1&from=detail" className="text-link">更换</Link>
           </div>
         ) : null}
       </main>

@@ -9,7 +9,7 @@ import { CancelOrderSheet } from '../components/OrderActions';
 import { orderMatchesTab, orderTabs } from '../lib/format';
 
 export default function Orders() {
-  const { state, login, beginReorder, toast } = useApp();
+  const { state, login, beginReorder, toast, openAgreement } = useApp();
   const navigate = useNavigate();
   const [params, setParams] = useSearchParams();
   const [cancelOrder, setCancelOrder] = useState<Order | null>(null);
@@ -63,6 +63,11 @@ export default function Orders() {
               </>
             }
           />
+          <p className="orders-login-terms">
+            登录即代表你同意
+            <button type="button" className="inline-link" onClick={() => openAgreement('user')}>《用户协议》</button>
+            <button type="button" className="inline-link" onClick={() => openAgreement('privacy')}>《隐私政策》</button>
+          </p>
           <p className="orders-login-note">
             演示账号内已有 {state.orders.length} 个订单（
             {new Set(state.orders.map((o) => o.status)).size} 种状态），登录后即可查看

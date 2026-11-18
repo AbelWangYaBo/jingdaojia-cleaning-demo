@@ -236,7 +236,13 @@ export default function Checkout() {
     if (!name.trim()) next.name = '请填写联系人姓名';
     if (!isValidPhone(phone)) next.phone = '请输入正确的 11 位手机号';
     else if (!verified) next.phone = '请先完成手机号验证或微信授权';
-    if (!date || !slot) next.time = '请选择上门日期与时间段';
+    if (!date || !slot) {
+      next.time = '请选择上门日期与时间段';
+    } else if (isSlotPast(date, slot)) {
+      next.time = '所选时段已过，请重新选择上门时间';
+      const nextSlot = defaultAppointment();
+      updateDraft({ date: nextSlot.date, slot: nextSlot.slot });
+    }
     if (!agreed) next.agreement = '请阅读并同意服务协议';
     setErrors(next);
     if (Object.keys(next).length > 0) {
@@ -299,7 +305,7 @@ export default function Checkout() {
         <button
           type="button"
           className="checkout-address"
-          onClick={() => navigate('/addresses?select=1')}
+          onClick={() => navigate('/addresses?select=1&from=checkout')}
         >
           {address ? (
             <>
@@ -661,6 +667,7 @@ export default function Checkout() {
                   disabled={!applicable}
                   onSelect={() => {
                     setCouponChoice(coupon.id);
+                    updateDraft({ couponId: coupon.id });
                     setCouponOpen(false);
                   }}
                 />
@@ -672,6 +679,7 @@ export default function Checkout() {
             className={`no-coupon${selectedCoupon ? '' : ' is-selected'}`}
             onClick={() => {
               setCouponChoice('none');
+              updateDraft({ couponId: 'none' });
               setCouponOpen(false);
             }}
           >

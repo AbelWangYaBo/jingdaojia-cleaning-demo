@@ -14,7 +14,7 @@ const typeMeta: Record<NoticeType, { label: string; icon: IconName; tone: string
 };
 
 export default function Notices() {
-  const { state, login, markNoticesRead, markNoticeRead } = useApp();
+  const { state, login, markNoticesRead, markNoticeRead, openAgreement } = useApp();
   const navigate = useNavigate();
   const [filter, setFilter] = useState<'all' | NoticeType>('all');
   const unread = state.notices.filter((n) => !n.read).length;
@@ -37,6 +37,11 @@ export default function Notices() {
             </button>
           }
         />
+        <p className="notices-terms">
+          登录即代表你同意
+          <button type="button" className="inline-link" onClick={() => openAgreement('user')}>《用户协议》</button>
+          <button type="button" className="inline-link" onClick={() => openAgreement('privacy')}>《隐私政策》</button>
+        </p>
         <p className="notices-note">消息是演示数据，登录后即可查看</p>
       </div>
     );
