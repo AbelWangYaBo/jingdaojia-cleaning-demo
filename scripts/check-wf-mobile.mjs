@@ -1,0 +1,10 @@
+import { chromium } from 'playwright-core';
+const browser = await chromium.launch({ channel: 'chrome', headless: true });
+const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1.5, locale: 'zh-CN', isMobile: true, hasTouch: true });
+const page = await ctx.newPage();
+await page.goto('http://127.0.0.1:5273/wireframes.html', { waitUntil: 'networkidle' });
+await page.waitForTimeout(400);
+console.log(await page.locator('.top-actions').innerText());
+console.log('buttons:', await page.locator('.top-actions a, .top-actions button').count());
+await page.screenshot({ path: 'screenshots/82-wf-mobile-header.png' });
+await browser.close();
