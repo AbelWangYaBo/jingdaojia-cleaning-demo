@@ -1,5 +1,7 @@
 # 净到家 · 家政清洗预约小程序演示
 
+[![Deploy to GitHub Pages](https://github.com/AbelWangYaBo/jingdaojia-cleaning-demo/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/AbelWangYaBo/jingdaojia-cleaning-demo/actions/workflows/deploy-pages.yml)
+
 一套**可完整跑通**的家政清洗预约演示，参考「天鹅到家」的服务分类、下单链路、师傅展示与售后规则重新设计。覆盖 **沙发、窗帘、地毯、床垫、空调** 五大清洗项目，客户端可完成：
 
 - 浏览服务、查看服务详情、按规格/数量计价
