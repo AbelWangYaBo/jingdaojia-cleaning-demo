@@ -1,0 +1,12 @@
+import { chromium } from 'playwright-core';
+const BASE = 'http://127.0.0.1:5281/jingdaojia-cleaning-demo';
+const browser = await chromium.launch({ channel: 'chrome', headless: true });
+const page = await browser.newPage();
+page.on('console', m => { if (m.type()==='error') console.log('CONSOLE', m.text(), m.location()); });
+page.on('requestfailed', r => console.log('REQFAIL', r.url(), r.failure()?.errorText));
+page.on('response', r => { if (r.status() >= 400) console.log('BAD', r.status(), r.url()); });
+await page.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+await page.waitForTimeout(800);
+await page.goto(`${BASE}/#/service/ac`, { waitUntil: 'networkidle' });
+await page.waitForTimeout(500);
+await browser.close();

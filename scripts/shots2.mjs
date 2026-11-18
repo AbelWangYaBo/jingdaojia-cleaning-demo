@@ -1,0 +1,41 @@
+import { chromium } from 'playwright-core';
+import fs from 'node:fs';
+
+const BASE = 'http://127.0.0.1:5273';
+const OUT = 'screenshots';
+fs.mkdirSync(OUT, { recursive: true });
+const browser = await chromium.launch({ channel: 'chrome', headless: true });
+
+const desktop = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1.5, locale: 'zh-CN' });
+const dp = await desktop.newPage();
+await dp.goto(BASE, { waitUntil: 'networkidle' });
+await dp.waitForTimeout(900);
+await dp.getByRole('button', { name: '暂不开启' }).click();
+await dp.waitForTimeout(3200);
+await dp.screenshot({ path: `${OUT}/30-desktop-stage-clean.png`, fullPage: true });
+await desktop.close();
+
+const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1.5, locale: 'zh-CN', isMobile: true, hasTouch: true });
+const page = await ctx.newPage();
+await page.goto(BASE, { waitUntil: 'networkidle' });
+await page.waitForTimeout(900);
+await page.getByRole('button', { name: '暂不开启' }).click();
+await page.waitForTimeout(3200);
+await page.screenshot({ path: `${OUT}/31-home-clean.png` });
+await page.goto(`${BASE}/#/mine`);
+await page.waitForTimeout(900);
+await page.screenshot({ path: `${OUT}/32-mine-guest-clean.png` });
+await page.goto(`${BASE}/#/addresses`);
+await page.waitForTimeout(700);
+await page.screenshot({ path: `${OUT}/33-addresses-clean.png` });
+await page.goto(`${BASE}/#/address-edit`);
+await page.waitForTimeout(700);
+await page.screenshot({ path: `${OUT}/34-address-edit.png` });
+await page.goto(`${BASE}/#/about`);
+await page.waitForTimeout(700);
+await page.screenshot({ path: `${OUT}/35-about-clean.png` });
+await page.goto(`${BASE}/#/login`);
+await page.waitForTimeout(700);
+await page.screenshot({ path: `${OUT}/36-login.png` });
+await browser.close();
+console.log('done');

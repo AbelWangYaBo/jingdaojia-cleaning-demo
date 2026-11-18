@@ -1,0 +1,1238 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%23ff4d4c'/%3E%3Cpath d='M24 9c0 0-11 12-11 20a11 11 0 0 0 22 0C35 21 24 9 24 9Z' fill='white'/%3E%3Cpath d='M18.5 29.5 24 23l5.5 6.5' fill='none' stroke='%23ff4d4c' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E" />
+<title>净到家 · 家政清洗小程序 低保真框线图</title>
+<style>
+  :root {
+    --ink: #20293a;
+    --ink-2: #4b5563;
+    --muted: #8b93a1;
+    --muted-2: #aeb5c0;
+    --line: #dfe3e9;
+    --line-soft: #eceff3;
+    --fill: #f3f4f6;
+    --fill-2: #e9ecf0;
+    --paper: #f5f2ec;
+    --card: #ffffff;
+    --accent: #ff4d4c;
+    --accent-soft: #fff0ee;
+    --font: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    color: var(--ink);
+    background:
+      radial-gradient(900px 500px at 8% 0%, rgba(255, 110, 90, .075), transparent 60%),
+      radial-gradient(800px 500px at 100% 24%, rgba(22, 169, 143, .06), transparent 55%),
+      var(--paper);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; }
+  h1, h2, h3, p, ol, ul { margin: 0; }
+  ol, ul { padding: 0; list-style: none; }
+  .page { max-width: 1420px; margin: 0 auto; padding: 40px 40px 70px; }
+
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    margin-bottom: 34px;
+  }
+  .brand { display: flex; align-items: center; gap: 11px; }
+  .brand-mark {
+    width: 38px; height: 38px; border-radius: 12px; background: var(--accent);
+    display: grid; place-items: center; color: #fff; font-weight: 850; font-size: 19px;
+    box-shadow: 0 8px 18px -10px rgba(255, 77, 76, .8);
+  }
+  .brand-name { font-size: 19px; font-weight: 850; letter-spacing: -.4px; }
+  .brand-name em { font-style: normal; color: var(--accent); }
+  .brand-sub { margin-top: 1px; font-size: 10px; color: var(--muted); letter-spacing: .8px; }
+  .top-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 13px;
+    border-radius: 9px; border: 1px solid var(--line); background: #fff; color: var(--ink-2);
+    font-size: 11.5px; font-weight: 600;
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-dark { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .btn-dark:hover { color: #fff; background: #2b374b; border-color: #2b374b; }
+
+  .doc-head { display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: end; padding-bottom: 26px; border-bottom: 1px solid var(--line); }
+  .kicker { font-size: 10px; font-weight: 750; letter-spacing: 2.2px; color: var(--accent); }
+  .doc-head h1 { margin-top: 10px; font-size: 42px; line-height: 1.14; letter-spacing: -1.8px; font-weight: 850; }
+  .doc-head h1 span { color: var(--accent); }
+  .doc-lead { max-width: 680px; margin-top: 14px; font-size: 13px; line-height: 1.9; color: var(--ink-2); }
+  .doc-meta { display: flex; flex-direction: column; gap: 7px; align-items: flex-end; font-size: 10.5px; color: var(--muted); white-space: nowrap; }
+  .doc-meta b { color: var(--ink-2); font-weight: 650; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 17px; padding: 16px 0 24px; border-bottom: 1px solid var(--line); }
+  .legend-item { display: flex; align-items: center; gap: 7px; font-size: 10.5px; color: var(--muted); }
+  .swatch { width: 17px; height: 12px; border-radius: 3px; border: 1px solid var(--line); background: #fff; }
+  .swatch.fill { background: var(--fill); }
+  .swatch.dark { background: var(--ink); border-color: var(--ink); }
+  .swatch.accent { background: var(--accent-soft); border-color: #ffc9c3; }
+
+  .flow-wrap { margin: 34px 0 10px; }
+  .section-kicker { display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 750; letter-spacing: 1.7px; color: var(--muted); }
+  .section-kicker::before { content: ""; width: 18px; height: 2px; border-radius: 2px; background: var(--accent); }
+  .flow-wrap h2 { margin-top: 7px; font-size: 25px; font-weight: 820; letter-spacing: -.8px; }
+  .flow-wrap > p { margin-top: 5px; font-size: 11.5px; color: var(--muted); line-height: 1.7; }
+  .flow { display: flex; align-items: stretch; gap: 0; margin-top: 18px; overflow-x: auto; padding-bottom: 5px; }
+  .flow-node {
+    position: relative; flex: 1 0 180px; min-height: 96px; padding: 13px 15px;
+    border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,.72);
+  }
+  .flow-node + .flow-node { margin-left: 24px; }
+  .flow-node + .flow-node::before {
+    content: "→"; position: absolute; left: -20px; top: 50%; transform: translateY(-50%);
+    font-size: 15px; color: var(--muted-2);
+  }
+  .flow-node span { font-size: 9px; font-weight: 800; color: var(--accent); letter-spacing: .6px; }
+  .flow-node h3 { margin-top: 5px; font-size: 13px; font-weight: 750; }
+  .flow-node p { margin-top: 4px; font-size: 9.5px; line-height: 1.6; color: var(--muted); }
+  .status-line { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin-top: 18px; padding: 13px 15px; border: 1px dashed var(--line); border-radius: 11px; background: rgba(255,255,255,.45); }
+  .status-line b { font-size: 10px; color: var(--muted); font-weight: 650; margin-right: 5px; }
+  .state { padding: 3px 8px; border-radius: 5px; background: #fff; border: 1px solid var(--line); font-size: 9px; color: var(--ink-2); }
+  .state.hot { border-color: #ffc9c3; background: var(--accent-soft); color: #b83a36; }
+  .arrow { color: var(--muted-2); font-size: 11px; }
+
+  .group { margin-top: 46px; }
+  .group-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .group-head h2 { font-size: 20px; font-weight: 820; letter-spacing: -.5px; }
+  .group-head h2 span { color: var(--accent); margin-right: 7px; font-size: 13px; font-weight: 800; vertical-align: 3px; }
+  .group-head p { font-size: 10.5px; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 26px 22px; margin-top: 22px; }
+  .card { min-width: 0; }
+  .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 9px; }
+  .card-title { display: flex; align-items: baseline; gap: 7px; min-width: 0; }
+  .card-no { font-size: 9px; font-weight: 800; color: var(--accent); letter-spacing: .5px; }
+  .card-title h3 { font-size: 12.5px; font-weight: 750; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .card-tag { flex: none; font-size: 8px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 2px 6px; }
+  .notes { margin-top: 10px; display: flex; flex-direction: column; gap: 5px; }
+  .notes li { display: flex; gap: 6px; font-size: 9.5px; line-height: 1.6; color: var(--muted); }
+  .notes li i {
+    width: 13px; height: 13px; flex: none; display: grid; place-items: center; margin-top: 1px;
+    border-radius: 50%; background: var(--fill); color: var(--muted); font-style: normal;
+    font-size: 7px; font-weight: 700;
+  }
+  .notes li b { color: var(--ink-2); font-weight: 600; }
+
+  /* ---------- wireframe phone ---------- */
+  .wf {
+    width: 100%; max-width: 258px; margin: 0 auto; height: 510px;
+    border: 1.5px solid #c6ccd5; border-radius: 22px; background: #fff;
+    padding: 7px; position: relative; overflow: hidden;
+    box-shadow: 0 6px 0 -3px #e6e2db;
+  }
+  .wf-screen { height: 100%; border: 1px solid var(--line-soft); border-radius: 15px; overflow: hidden; display: flex; flex-direction: column; background: #fbfbfc; position: relative; }
+  .wf-status { flex: none; height: 19px; display: flex; align-items: center; justify-content: space-between; padding: 0 11px; font-size: 7px; color: #9aa1ad; border-bottom: 1px solid #f4f5f7; background: #fff; }
+  .wf-status .dotline { display: flex; gap: 3px; }
+  .wf-status .dotline i { width: 10px; height: 3px; border-radius: 2px; background: #d6dae1; }
+  .wf-nav { flex: none; height: 29px; display: flex; align-items: center; justify-content: space-between; padding: 0 9px; background: #fff; border-bottom: 1px solid var(--line-soft); }
+  .wf-nav b { font-size: 9px; font-weight: 700; color: #525b68; }
+  .wf-nav i { min-width: 22px; font-style: normal; font-size: 9px; color: #a1a8b3; }
+  .wf-nav i:last-child { text-align: right; }
+  .wf-body { flex: 1; min-height: 0; overflow: hidden; padding: 8px 9px; display: flex; flex-direction: column; gap: 7px; background: #f7f8f9; }
+  .wf-body.white { background: #fff; }
+  .wf-tab { flex: none; height: 31px; display: flex; border-top: 1px solid var(--line-soft); background: #fff; }
+  .wf-tab div { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 6px; color: #a4abb6; }
+  .wf-tab div::before { content: ""; width: 9px; height: 9px; border: 1.3px solid #b6bdc7; border-radius: 3px; }
+  .wf-tab div.on { color: #4b5563; font-weight: 650; }
+  .wf-tab div.on::before { background: #e8ebef; border-color: #757f8d; }
+  .wf-action { flex: none; height: 35px; border-top: 1px solid var(--line-soft); background: #fff; display: flex; align-items: center; gap: 5px; padding: 0 8px; }
+  .wf-action .wf-btn { flex: 1; }
+
+  .bar { height: 8px; border-radius: 3px; background: var(--fill-2); }
+  .line { height: 5px; border-radius: 3px; background: var(--fill); }
+  .line.s { width: 46%; }
+  .line.m { width: 68%; }
+  .box { border: 1px dashed #d9dee5; border-radius: 7px; background: #fff; }
+  .wf-search { height: 22px; border: 1px solid var(--line); border-radius: 6px; background: #fff; display: flex; align-items: center; padding: 0 7px; gap: 4px; font-size: 7px; color: #a4abb6; }
+  .wf-search::before { content: ""; width: 7px; height: 7px; border: 1.3px solid #b1b8c3; border-radius: 50%; }
+  .wf-headline { font-size: 7px; font-weight: 700; color: #626b78; display: flex; align-items: center; justify-content: space-between; }
+  .wf-headline span { font-size: 6px; color: #a3aab4; font-weight: 400; }
+  .wf-hero { height: 70px; border-radius: 9px; background: #e9ecf0; position: relative; overflow: hidden; padding: 10px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+  .wf-hero::after { content: ""; position: absolute; width: 60px; height: 60px; border-radius: 50%; right: -8px; bottom: -16px; border: 1px dashed #b8c0ca; }
+  .wf-hero b { width: 54%; height: 7px; border-radius: 3px; background: #b9c0ca; }
+  .wf-hero .line { background: #cfd5dd; width: 44%; }
+  .wf-hero .pill { width: 36px; height: 14px; border-radius: 4px; background: #fff; border: 1px solid #c9d0d9; margin-top: 3px; }
+  .wf-cats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; }
+  .wf-cat { height: 46px; border-radius: 7px; border: 1px solid var(--line); background: #fff; padding: 6px; display: flex; flex-direction: column; gap: 3px; position: relative; }
+  .wf-cat::after { content: ""; position: absolute; width: 19px; height: 19px; border: 1px dashed #cdd3db; border-radius: 50%; right: 5px; bottom: 5px; }
+  .wf-cat b { width: 42%; height: 5px; border-radius: 2px; background: #bcc3cd; }
+  .wf-cat span { width: 55%; height: 3px; border-radius: 2px; background: var(--fill-2); }
+  .wf-cat:nth-child(5) { grid-column: span 2; height: 38px; }
+  .wf-row { display: flex; gap: 6px; align-items: stretch; }
+  .wf-thumb { width: 45px; height: 45px; flex: none; border-radius: 6px; border: 1px dashed #ced4dd; background: #f2f4f7; display: grid; place-items: center; font-size: 6px; color: #b0b7c1; position: relative; }
+  .wf-thumb::after { content: ""; position: absolute; inset: 6px; border: 1px dashed #dfe3e9; border-radius: 4px; }
+  .wf-lines { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; padding-top: 1px; }
+  .wf-lines b { font-size: 7px; color: #626b78; font-weight: 650; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .wf-lines .line { height: 4px; }
+  .wf-lines .line:first-child { width: 64%; }
+  .wf-lines .line:nth-child(2) { width: 86%; }
+  .wf-lines .line:nth-child(3) { width: 48%; }
+  .wf-price { font-size: 8px; font-weight: 800; color: #68717d; }
+  .wf-price em { font-style: normal; font-size: 5.5px; color: #a5acb6; font-weight: 500; margin-left: 2px; }
+  .wf-card { border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 7px; display: flex; flex-direction: column; gap: 5px; }
+  .wf-provider { display: flex; gap: 6px; align-items: center; border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 7px; }
+  .wf-avatar { width: 27px; height: 27px; flex: none; border-radius: 50%; border: 1px dashed #c5ccd6; background: #f2f4f7; position: relative; }
+  .wf-avatar::after { content: ""; position: absolute; left: 50%; bottom: -3px; transform: translateX(-50%); width: 19px; height: 9px; border-radius: 8px 8px 0 0; border: 1px dashed #d2d8e0; border-bottom: none; }
+  .wf-provider .wf-lines { gap: 2px; }
+  .wf-btn { height: 18px; border-radius: 4px; border: 1px solid var(--line); background: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 6.5px; color: #707987; padding: 0 7px; }
+  .wf-btn.dark { background: #5b6573; border-color: #5b6573; color: #fff; }
+  .wf-btn.ghost { background: #f4f5f7; }
+  .wf-btn.accent { background: var(--accent-soft); border-color: #ffc9c3; color: #b83a36; }
+  .wf-chips { display: flex; gap: 4px; flex-wrap: wrap; }
+  .wf-chip { padding: 3px 6px; border-radius: 4px; border: 1px solid var(--line); background: #fff; font-size: 6px; color: #8b93a1; }
+  .wf-chip.on { background: #5b6573; border-color: #5b6573; color: #fff; }
+  .wf-dates { display: flex; gap: 4px; }
+  .wf-date { flex: 1; height: 30px; border-radius: 5px; border: 1px solid var(--line); background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 5.5px; color: #a4abb6; }
+  .wf-date.on { border-color: #f0a29b; background: var(--accent-soft); color: #b83a36; }
+  .wf-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+  .wf-slot { height: 20px; border-radius: 4px; border: 1px solid var(--line); background: #fff; font-size: 5.5px; color: #9aa1ac; display: grid; place-items: center; }
+  .wf-slot.on { border-color: #f0a29b; background: var(--accent-soft); color: #b83a36; }
+  .wf-form { display: flex; flex-direction: column; }
+  .wf-field { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 23px; border-bottom: 1px solid var(--line-soft); font-size: 6.5px; color: #6e7784; }
+  .wf-field span:last-child { color: #a8afb9; font-size: 6px; }
+  .wf-field .wf-btn { height: 14px; font-size: 5.5px; }
+  .wf-summary { display: flex; flex-direction: column; gap: 4px; }
+  .wf-summary div { display: flex; justify-content: space-between; font-size: 6.5px; color: #8d95a1; }
+  .wf-summary div b { color: #5f6875; font-weight: 650; }
+  .wf-summary div.total { border-top: 1px dashed var(--line); padding-top: 4px; font-size: 8px; color: #4c5562; }
+  .wf-summary div.total b { font-size: 10px; }
+  .wf-check { display: flex; gap: 4px; align-items: flex-start; font-size: 5.8px; color: #959da8; line-height: 1.5; }
+  .wf-check::before { content: ""; width: 7px; height: 7px; flex: none; border: 1px solid #c8ced7; border-radius: 50%; }
+  .wf-check.on::before { background: #7c8592; border-color: #7c8592; }
+  .wf-check b { color: #b83a36; font-weight: 500; }
+  .wf-amount { border-radius: 9px; background: #e9ecf0; padding: 11px 10px; display: flex; flex-direction: column; gap: 4px; }
+  .wf-amount span { font-size: 6px; color: #8b93a1; }
+  .wf-amount b { font-size: 20px; letter-spacing: -1px; color: #4c5562; font-weight: 850; }
+  .wf-amount .line { width: 50%; background: #cbd2da; }
+  .wf-methods { display: flex; flex-direction: column; gap: 0; }
+  .wf-method { display: flex; align-items: center; gap: 6px; padding: 6px 0; border-bottom: 1px solid var(--line-soft); font-size: 6.5px; color: #6b7481; }
+  .wf-method::before { content: ""; width: 13px; height: 13px; border-radius: 4px; background: var(--fill-2); }
+  .wf-method::after { content: ""; width: 8px; height: 8px; margin-left: auto; border: 1px solid #c8ced7; border-radius: 50%; }
+  .wf-method.on::after { background: #7c8592; border-color: #7c8592; }
+  .wf-success { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 12px 0 6px; }
+  .wf-checkmark { width: 42px; height: 42px; border-radius: 50%; background: #dfe3e8; display: grid; place-items: center; color: #6d7683; font-size: 24px; }
+  .wf-success b { font-size: 11px; color: #4c5562; }
+  .wf-success span { font-size: 6.5px; color: #9aa1ac; }
+  .wf-success .wf-btn { min-width: 80px; }
+  .wf-steps { display: flex; justify-content: space-between; border: 1px solid var(--line); background: #fff; border-radius: 7px; padding: 7px 6px; }
+  .wf-step { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 5px; color: #9ca3ae; }
+  .wf-step::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #e5e8ed; border: 1px solid #d5dae2; }
+  .wf-step.done::before { background: #7f8996; border-color: #7f8996; }
+  .wf-step.now::before { background: var(--accent); border-color: var(--accent); }
+  .wf-timeline { display: flex; flex-direction: column; gap: 0; padding-left: 2px; }
+  .wf-tl { position: relative; display: flex; gap: 6px; padding-bottom: 8px; font-size: 5.8px; color: #8d95a1; line-height: 1.4; }
+  .wf-tl::before { content: ""; position: absolute; left: 3px; top: 7px; bottom: 0; width: 1px; background: var(--line); }
+  .wf-tl:last-child::before { display: none; }
+  .wf-tl i { width: 7px; height: 7px; flex: none; margin-top: 1px; border-radius: 50%; background: #d1d7df; z-index: 1; }
+  .wf-tl.now i { background: var(--accent); }
+  .wf-tl b { display: block; font-size: 6.2px; color: #626b78; font-weight: 600; }
+  .wf-tl em { font-style: normal; font-size: 5px; }
+  .wf-stars { display: flex; gap: 3px; justify-content: center; font-size: 15px; color: #c4cad3; letter-spacing: 1px; }
+  .wf-stars .on { color: #8a93a0; }
+  .wf-tagrow { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; }
+  .wf-tag { padding: 3px 6px; border-radius: 999px; border: 1px solid var(--line); font-size: 5.5px; color: #8f97a3; background: #fff; }
+  .wf-tag.on { border-color: #efb2ab; background: var(--accent-soft); color: #b83a36; }
+  .wf-textarea { height: 52px; border: 1px solid var(--line); border-radius: 6px; background: #fff; padding: 6px; font-size: 5.5px; color: #b0b7c1; }
+  .wf-mine-head { border-radius: 9px; background: #e9ecf0; padding: 9px; display: flex; gap: 7px; align-items: center; }
+  .wf-mine-head .wf-avatar { width: 34px; height: 34px; background: #dfe3e8; }
+  .wf-mine-head .wf-lines b { width: 40%; height: 6px; background: #b9c0ca; }
+  .wf-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; border: 1px solid var(--line); background: #fff; border-radius: 7px; padding: 6px; }
+  .wf-stat { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 5px; color: #9aa1ac; }
+  .wf-stat b { font-size: 8px; color: #626b78; }
+  .wf-menu { border: 1px solid var(--line); border-radius: 7px; background: #fff; padding: 0 7px; }
+  .wf-menu div { display: flex; align-items: center; gap: 6px; min-height: 22px; border-bottom: 1px solid var(--line-soft); font-size: 6px; color: #78818e; }
+  .wf-menu div:last-child { border-bottom: none; }
+  .wf-menu div::before { content: ""; width: 11px; height: 11px; border-radius: 3px; background: var(--fill); }
+  .wf-menu div::after { content: "›"; margin-left: auto; color: #b6bdc7; }
+  .wf-address { border: 1px solid var(--line); border-radius: 7px; background: #fff; padding: 7px; display: flex; flex-direction: column; gap: 4px; }
+  .wf-address b { font-size: 6.5px; color: #626b78; }
+  .wf-address .line { width: 82%; height: 4px; }
+  .wf-address .row { display: flex; gap: 4px; }
+  .wf-address .row .wf-chip { font-size: 5px; padding: 2px 4px; }
+  .wf-city-hot { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+  .wf-city-hot span { height: 17px; border: 1px solid var(--line); border-radius: 4px; background: #fff; font-size: 5.5px; color: #8e96a2; display: grid; place-items: center; }
+  .wf-city-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 9px; }
+  .wf-city-list span { height: 18px; border-bottom: 1px solid var(--line-soft); display: flex; align-items: center; font-size: 5.5px; color: #8f97a3; }
+  .wf-letter { font-size: 5px; color: #b4bbc5; margin: 3px 0 1px; }
+  .wf-notice { display: flex; gap: 6px; border: 1px solid var(--line); border-radius: 7px; background: #fff; padding: 7px; }
+  .wf-notice::before { content: ""; width: 20px; height: 20px; flex: none; border-radius: 5px; background: var(--fill); }
+  .wf-notice .wf-lines b { font-size: 6.5px; }
+  .wf-accordions { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; background: #fff; }
+  .wf-accordion { display: flex; justify-content: space-between; align-items: center; padding: 7px; font-size: 6.5px; color: #6f7885; border-bottom: 1px solid var(--line-soft); }
+  .wf-accordion:last-child { border-bottom: none; }
+  .wf-accordion::after { content: "⌄"; color: #aab1bb; font-size: 7px; }
+  .wf-login { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 8px 0; }
+  .wf-login .wf-logo { width: 32px; height: 32px; border-radius: 9px; background: #dfe3e8; }
+  .wf-login b { font-size: 9px; color: #5f6875; }
+  .wf-login span { font-size: 5.5px; color: #a3aab4; }
+  .wf-sheet { border: 1px solid #cfd5dd; border-radius: 8px 8px 3px 3px; background: #fff; padding: 8px; margin-top: auto; box-shadow: 0 -3px 8px -6px rgba(0,0,0,.2); }
+  .wf-sheet .wf-headline { margin-bottom: 6px; }
+  .wf-sheet .wf-btn { width: 100%; height: 22px; margin-top: 5px; }
+  .wf-dim { position: absolute; inset: 0; background: rgba(70,78,90,.18); z-index: 2; }
+  .wf-sheet { position: relative; z-index: 3; }
+  .wf-lock { position: absolute; inset: 0; z-index: 2; background: rgba(250,250,251,.35); }
+  .wf-nowrap { white-space: nowrap; }
+  .wf-divider { height: 1px; background: var(--line); margin: 2px 0; }
+  .wf-note { font-size: 5.5px; color: #a2a9b3; line-height: 1.5; }
+  .wf-badge { display: inline-flex; align-items: center; gap: 2px; padding: 1px 4px; border-radius: 3px; background: var(--accent-soft); color: #b83a36; font-size: 5px; }
+  .wf-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+  .wf-small { font-size: 5.5px; color: #9aa1ac; line-height: 1.5; }
+
+  /* group separators / footer */
+  .doc-foot { margin-top: 52px; padding-top: 22px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; }
+  .doc-foot p { max-width: 720px; font-size: 10px; line-height: 1.8; color: var(--muted); }
+  .doc-foot .foot-brand { font-size: 11px; font-weight: 750; color: var(--ink-2); }
+  .doc-foot .foot-brand span { color: var(--accent); }
+  .toc { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+  .toc a { font-size: 9.5px; color: var(--muted); padding: 4px 8px; border-radius: 5px; border: 1px solid var(--line); background: rgba(255,255,255,.55); }
+  .toc a:hover { color: var(--accent); border-color: #f3c0bb; }
+
+  @media (max-width: 1180px) {
+    .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .doc-head h1 { font-size: 36px; }
+  }
+  @media (max-width: 860px) {
+    .page { padding: 24px 18px 50px; }
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 14px; }
+    .doc-head { grid-template-columns: 1fr; }
+    .doc-meta { align-items: flex-start; }
+    .doc-head h1 { font-size: 31px; }
+    .flow-node { flex-basis: 160px; }
+    .wf { height: 490px; }
+  }
+  @media (max-width: 560px) {
+    .grid { grid-template-columns: 1fr; }
+    .wf { max-width: 300px; height: 540px; }
+    .topbar { align-items: flex-start; }
+    .top-actions .btn span { display: none; }
+    .flow { flex-direction: column; gap: 10px; }
+    .flow-node { flex-basis: auto; }
+    .flow-node + .flow-node { margin-left: 0; }
+    .flow-node + .flow-node::before { content: "↓"; left: 50%; top: -17px; transform: translateX(-50%); }
+    .status-line { display: none; }
+    .doc-foot { flex-direction: column; }
+  }
+  @media print {
+    @page { size: A4; margin: 12mm 10mm 16mm; }
+    body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .top-actions, .toc, .doc-foot .btn { display: none; }
+    .page { max-width: none; padding: 0; }
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 12px 14px; }
+    .wf { height: 478px; box-shadow: none; max-width: 258px; }
+    .card, .flow-wrap, .legend, .doc-head { break-inside: avoid; }
+    .card { zoom: .82; }
+    .group { break-before: page; }
+    .group:first-of-type { break-before: auto; }
+    .group-head { break-after: avoid; }
+    .flow { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .flow-node { flex: none; min-height: 0; }
+    .flow-node + .flow-node { margin-left: 0; }
+    .flow-node + .flow-node::before { display: none; }
+    .flow-node p { font-size: 8px; }
+    .doc-head h1 { font-size: 34px; }
+    .doc-lead { font-size: 10.5px; }
+    .flow-node { flex-basis: 0; min-height: 80px; }
+    .flow-node p { font-size: 8.5px; }
+    .notes li { font-size: 8.5px; }
+    .card-title h3 { font-size: 11.5px; }
+    .card-tag { font-size: 7px; }
+    .wf-body { gap: 6px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">净</div>
+      <div>
+        <div class="brand-name">净<em>到家</em></div>
+        <div class="brand-sub">HOME CLEANING · WIREFRAMES</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <a class="btn" href="./"><span>打开高保真演示</span> →</a>
+      <a class="btn" href="./wireframes.pdf" download>下载 PDF</a>
+      <button class="btn btn-dark" type="button" onclick="window.print()">打印 / 存为 PDF</button>
+    </div>
+  </header>
+
+  <section class="doc-head">
+    <div>
+      <div class="kicker">LOW-FI WIREFRAME · V1.0</div>
+      <h1>家政清洗预约小程序<br /><span>低保真框线图</span></h1>
+      <p class="doc-lead">
+        参考「天鹅到家」的服务分类与下单链路，覆盖沙发、窗帘、地毯、床垫、空调清洗。
+        本图只表达页面结构、信息层级与关键交互，配色与组件细节见高保真演示。
+      </p>
+      <nav class="toc" aria-label="目录">
+        <a href="#flow">关键流程</a>
+        <a href="#group-browse">入口与浏览</a>
+        <a href="#group-order">下单与支付</a>
+        <a href="#group-status">订单与售后</a>
+        <a href="#group-mine">我的与设置</a>
+      </nav>
+    </div>
+    <div class="doc-meta">
+      <div><b>项目</b>　净到家 · 家政清洗演示</div>
+      <div><b>角色</b>　客户端（下单 / 支付 / 售后）</div>
+      <div><b>终端</b>　微信小程序风格 · 390 × 844</div>
+      <div><b>日期</b>　2026.11 · 内部评审版</div>
+    </div>
+  </section>
+
+  <div class="legend" aria-label="图例">
+    <div class="legend-item"><span class="swatch"></span>页面容器 / 卡片</div>
+    <div class="legend-item"><span class="swatch fill"></span>占位内容 / 图片</div>
+    <div class="legend-item"><span class="swatch dark"></span>主操作按钮</div>
+    <div class="legend-item"><span class="swatch accent"></span>选中 / 强调状态</div>
+    <div class="legend-item">虚线框 = 图片 / 插画占位</div>
+    <div class="legend-item">① ② ③ = 交互与校验说明</div>
+  </div>
+
+  <section class="flow-wrap" id="flow">
+    <div class="section-kicker">CORE FLOW</div>
+    <h2>一条完整的主链路</h2>
+    <p>从定位进入，到支付、师傅接单、服务完成与评价。未登录用户可以浏览服务，下单时再完成登录与手机号授权。</p>
+    <div class="flow">
+      <div class="flow-node">
+        <span>01 · 入口</span>
+        <h3>定位 / 城市 / 首页</h3>
+        <p>定位授权 → 城市选择 → 搜索 / 分类 → 服务列表</p>
+      </div>
+      <div class="flow-node">
+        <span>02 · 选购</span>
+        <h3>服务详情 / 师傅</h3>
+        <p>选规格、数量、师傅；可查看师傅资质与评价</p>
+      </div>
+      <div class="flow-node">
+        <span>03 · 下单</span>
+        <h3>地址 / 时间 / 手机号</h3>
+        <p>选地址 → 选时段 → 手机号授权/验证 → 协议 → 提交</p>
+      </div>
+      <div class="flow-node">
+        <span>04 · 支付</span>
+        <h3>收银台 / 支付成功</h3>
+        <p>微信支付模拟 → 待接单 → 匹配or指定师傅接单</p>
+      </div>
+      <div class="flow-node">
+        <span>05 · 履约</span>
+        <h3>订单状态 / 售后</h3>
+        <p>出发 → 服务中 → 完成 → 评价；改期/取消/客服</p>
+      </div>
+    </div>
+    <div class="status-line">
+      <b>订单状态机</b>
+      <span class="state">待付款</span><span class="arrow">→</span>
+      <span class="state">待接单</span><span class="arrow">→</span>
+      <span class="state">待服务</span><span class="arrow">→</span>
+      <span class="state">师傅已出发</span><span class="arrow">→</span>
+      <span class="state">服务中</span><span class="arrow">→</span>
+      <span class="state hot">待评价</span><span class="arrow">→</span>
+      <span class="state">已完成</span>
+      <span class="arrow" style="margin-left:12px">｜</span>
+      <span class="state">已取消 / 退款</span>
+    </div>
+  </section>
+
+  <section class="group" id="group-browse">
+    <div class="group-head">
+      <div><h2><span>01</span>入口与浏览</h2></div>
+      <p>定位授权 · 首页 · 服务列表 · 服务详情 · 师傅选择 · 师傅主页</p>
+    </div>
+    <div class="grid" id="grid-browse"></div>
+  </section>
+
+  <section class="group" id="group-order">
+    <div class="group-head">
+      <div><h2><span>02</span>下单与支付</h2></div>
+      <p>地址 · 时间 · 手机号授权与验证 · 优惠券 · 协议 · 收银台 · 支付成功</p>
+    </div>
+    <div class="grid" id="grid-order"></div>
+  </section>
+
+  <section class="group" id="group-status">
+    <div class="group-head">
+      <div><h2><span>03</span>订单与售后</h2></div>
+      <p>订单筛选 · 状态详情 · 进度时间线 · 联系师傅 · 改期 · 取消退款 · 评价</p>
+    </div>
+    <div class="grid" id="grid-status"></div>
+  </section>
+
+  <section class="group" id="group-mine">
+    <div class="group-head">
+      <div><h2><span>04</span>我的与设置</h2></div>
+      <p>登录态 · 地址 · 城市 · 优惠券 · 消息 · 协议中心 · 客服</p>
+    </div>
+    <div class="grid" id="grid-mine"></div>
+  </section>
+
+  <footer class="doc-foot">
+    <div>
+      <div class="foot-brand">净<span>到家</span> · 家政清洗预约演示</div>
+      <p>
+        说明：本框线图为内部演示设计稿，参考天鹅到家等家政平台的服务分类、下单链路与售后规则整理，
+        不代表真实商业产品。所有价格、师傅、地址与协议均为前端模拟数据。
+        高保真演示中已实现定位授权、手机号授权/验证码验证、城市与多地址选择、优惠券、模拟支付、
+        订单状态流转、改期、取消退款与评价。
+      </p>
+    </div>
+    <div class="doc-meta" style="align-items:flex-end">
+      <div><b>HIGH-FI</b>　/#/</div>
+      <div><b>VERSION</b>　1.0.0</div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  const E = (s) => s;
+  const nav = (title, opts = {}) => `
+    <div class="wf-nav">
+      <i>${opts.back === false ? '' : '‹'}</i>
+      <b>${title}</b>
+      <i>${opts.right || ''}</i>
+    </div>`;
+  const tab = (active) => `
+    <div class="wf-tab">
+      <div class="${active === 'home' ? 'on' : ''}">首页</div>
+      <div class="${active === 'orders' ? 'on' : ''}">订单</div>
+      <div class="${active === 'mine' ? 'on' : ''}">我的</div>
+    </div>`;
+  const action = (left, right, rightClass = 'dark') => `
+    <div class="wf-action">
+      ${left ? `<div class="wf-btn ghost">${left}</div>` : ''}
+      <div class="wf-btn ${rightClass}">${right}</div>
+    </div>`;
+  const line = (cls = '') => `<div class="line ${cls}"></div>`;
+  const headline = (text, right = '') => `<div class="wf-headline">${text}<span>${right}</span></div>`;
+  const serviceRow = () => `
+    <div class="wf-row">
+      <div class="wf-thumb">图</div>
+      <div class="wf-lines">
+        <b>服务项目名称</b>
+        ${line()}
+        <div style="display:flex;gap:3px;margin-top:1px">
+          <span class="wf-chip">标签</span><span class="wf-chip">标签</span>
+        </div>
+        <div class="wf-price" style="margin-top:2px">¥129 <em>/起</em></div>
+      </div>
+    </div>`;
+  const providerRow = (btn = '选择') => `
+    <div class="wf-provider">
+      <div class="wf-avatar"></div>
+      <div class="wf-lines">
+        <b>师傅姓名 · 等级</b>
+        ${line('s')}
+        <div style="display:flex;gap:2px;margin-top:1px">
+          <span class="wf-chip">认证</span><span class="wf-chip">专长</span>
+        </div>
+      </div>
+      <div class="wf-btn dark" style="align-self:center">${btn}</div>
+    </div>`;
+  const formField = (label, value, extra = '') => `
+    <div class="wf-field"><span>${label}</span><span>${value || '请选择'}</span>${extra}</div>`;
+  const backNav = (title, right = '') => nav(title, { right });
+  const phone = (body, { tab: tabName = null, act = '', navBar = '' } = {}) => `
+    <div class="wf">
+      <div class="wf-screen">
+        <div class="wf-status"><span>9:41</span><span class="dotline"><i></i><i></i><i></i></span></div>
+        ${navBar}
+        <div class="wf-body">${body}</div>
+        ${act}
+        ${tabName ? tab(tabName) : ''}
+      </div>
+    </div>`;
+
+  const screens = {
+    browse: [
+      {
+        title: '定位授权',
+        tag: '启动',
+        nav: nav('净到家', { back: false }),
+        body: `
+          ${line('m')}
+          <div class="wf-card" style="align-items:center;text-align:center;padding:15px 10px;gap:6px;margin-top:14px">
+            <div style="width:30px;height:30px;border-radius:50%;border:1px dashed #c5ccd6;display:grid;place-items:center;font-size:11px;color:#8b93a1">◎</div>
+            <b style="font-size:8px">「净到家」想获取你的位置</b>
+            <div class="wf-small">用于定位城市、推荐附近师傅</div>
+            <div class="wf-search" style="width:100%;justify-content:center;margin-top:3px">演示定位：深圳市 · 南山区</div>
+            <div style="display:flex;gap:5px;width:100%;margin-top:4px">
+              <div class="wf-btn ghost" style="flex:1">暂不开启</div>
+              <div class="wf-btn dark" style="flex:1">允许</div>
+            </div>
+          </div>
+          <div class="wf-note" style="text-align:center;margin-top:2px">模拟 wx.getLocation / 城市定位能力</div>
+        `,
+        notes: [
+          '<b>首次进入</b>主动申请定位，不阻塞浏览；拒绝后保留手动城市。',
+          '允许后展示「已定位」状态，首页城市与城市页同步。',
+          '定位只是推荐依据，服务地址仍由用户在结算时单独选择。'
+        ]
+      },
+      {
+        title: '首页',
+        tag: 'Tab',
+        nav: '',
+        body: `
+          <div class="wf-hero" style="height:64px">
+            <b></b>${line('s')}<div class="pill"></div>
+            <div style="position:absolute;right:12px;top:12px;font-size:13px;color:#9aa1ac">⌖</div>
+          </div>
+          <div class="wf-search">搜索 沙发清洗 / 空调清洗</div>
+          <div class="wf-headline">清洗服务 <span>全部 ›</span></div>
+          <div class="wf-cats">
+            ${['沙发清洗','窗帘清洗','地毯清洗','床垫清洗','空调清洗'].map((t, i) => `<div class="wf-cat"><b></b><span></span><div class="wf-note" style="margin-top:auto">${t}</div></div>`).join('')}
+          </div>
+          <div class="wf-headline">人气师傅 <span>查看全部 ›</span></div>
+          <div style="display:flex;gap:5px">
+            <div class="wf-provider" style="flex:1"><div class="wf-avatar"></div><div class="wf-lines">${line('s')}${line('s')}</div></div>
+            <div class="wf-provider" style="flex:1"><div class="wf-avatar"></div><div class="wf-lines">${line('s')}${line('s')}</div></div>
+          </div>
+        `,
+        tab: 'home',
+        notes: [
+          '顶部固定：城市 ←→ 消息；搜索作为主要分流入口。',
+          '5 个清洗分类为一级入口，第 5 个横跨整行，避免出现半行空白。',
+          '服务保障、师傅、清洗知识、FAQ 依次降低信息优先级。'
+        ]
+      },
+      {
+        title: '服务列表',
+        tag: '分类',
+        navBar: backNav('空调清洗', '分享'),
+        body: `
+          <div class="wf-hero" style="height:54px"><b></b>${line('s')}</div>
+          <div class="wf-chips"><span class="wf-chip on">空调清洗</span><span class="wf-chip">沙发</span><span class="wf-chip">窗帘</span><span class="wf-chip">地毯</span></div>
+          <div class="wf-provider" style="padding:6px"><div class="wf-avatar"></div><div class="wf-lines">${line('s')}${line('s')}</div><div class="wf-btn ghost">选师傅</div></div>
+          <div class="wf-headline" style="margin-top:1px">推荐　销量　价格 <span>4 项服务</span></div>
+          ${serviceRow()}
+          ${serviceRow()}
+          ${serviceRow()}
+        `,
+        notes: [
+          '分类切换不打断用户；排序（推荐/销量/价格）在列表内完成。',
+          '「选师傅」是一个独立入口，不强制指定。',
+          '每一项服务展示：规格起点价、标签、销量，减少来回跳转。'
+        ]
+      },
+      {
+        title: '服务详情',
+        tag: '核心页',
+        navBar: backNav('空调挂机全拆深洗', '分享'),
+        body: `
+          <div class="wf-hero" style="height:58px">
+            <b></b>${line('s')}
+            <div style="position:absolute;right:10px;bottom:7px;width:58px;height:40px;border:1px dashed #b8c0ca;border-radius:6px;background:#f6f7f9"></div>
+          </div>
+          <div class="wf-card">
+            <div style="display:flex;justify-content:space-between;align-items:baseline"><div class="wf-price" style="font-size:14px">¥119 <em>/台</em></div><span class="wf-badge">已优惠 ¥40</span></div>
+            <div class="wf-chips"><span class="wf-chip">全拆深洗</span><span class="wf-chip">高温消毒</span></div>
+          </div>
+          <div class="wf-headline">选择规格 <span>1 台起</span></div>
+          <div class="wf-chips"><span class="wf-chip on">大1匹-1.5匹 ¥119</span><span class="wf-chip">2匹 ¥139</span><span class="wf-chip">3匹 ¥159</span></div>
+          <div class="wf-field"><span>服务数量</span><span>－　1 台　＋</span></div>
+          <div class="wf-headline">服务师傅 <span>查看全部 ›</span></div>
+          <div class="wf-provider"><div class="wf-avatar"></div><div class="wf-lines"><b>平台优选师傅</b>${line('s')}</div><div class="wf-btn">自己选</div></div>
+          <div class="wf-headline">服务内容 / 流程 / 评价</div>
+          <div class="wf-grid2"><div class="wf-card" style="padding:5px">${line('s')}${line('s')}</div><div class="wf-card" style="padding:5px">${line('s')}${line('s')}</div></div>
+        `,
+        act: action('客服　收藏', '立即预约'),
+        notes: [
+          '价格随规格与数量实时变化，底部始终显示合计。',
+          '师傅区域默认平台优选，也可自行指定；选择结果写回草稿。',
+          '服务内容、流程、须知、评价承担「建立信任」的作用。'
+        ]
+      },
+      {
+        title: '选择师傅',
+        tag: '列表',
+        navBar: backNav('选择师傅'),
+        body: `
+          <div class="wf-headline">空调挂机全拆深洗 <span>2 位可服务</span></div>
+          <div class="wf-chips"><span class="wf-chip on">综合推荐</span><span class="wf-chip">评分最高</span><span class="wf-chip">距离最近</span></div>
+          <div class="wf-provider" style="border-style:dashed;background:#fffaf9">
+            <div class="wf-avatar"></div><div class="wf-lines"><b>平台优选师傅</b>${line('s')}</div>
+            <span class="wf-chip on">已选</span>
+          </div>
+          ${providerRow('选择 TA')}
+          ${providerRow('选择 TA')}
+          <div class="wf-note">指定后订单优先派给该师傅；无法接单时会沟通改派或改期。</div>
+        `,
+        notes: [
+          '平台优选置顶但与具体师傅视觉区分，避免用户误以为已指定。',
+          '信息要素：评分、接单量、好评率、距离、可约时间、认证标签。',
+          '点击选择即回写并返回服务详情，不额外弹确认。'
+        ]
+      },
+      {
+        title: '师傅主页',
+        tag: '资料',
+        navBar: backNav('师傅主页', '联系'),
+        body: `
+          <div class="wf-mine-head" style="background:#e9ecf0">
+            <div class="wf-avatar" style="width:40px;height:40px"></div>
+            <div class="wf-lines"><b style="height:7px"></b>${line('s')}${line('s')}</div>
+          </div>
+          <div class="wf-stats">
+            <div class="wf-stat"><b>3268</b>接单</div><div class="wf-stat"><b>99.6%</b>好评</div><div class="wf-stat"><b>8年</b>经验</div><div class="wf-stat"><b>1.2km</b>距离</div>
+          </div>
+          <div class="wf-chips"><span class="wf-chip">实名认证</span><span class="wf-chip">健康证</span><span class="wf-chip">技能证</span></div>
+          <div class="wf-headline">近期可约</div>
+          <div class="wf-chips"><span class="wf-chip on">今天 18:00</span><span class="wf-chip">明天 08:00</span><span class="wf-chip">明天 10:00</span></div>
+          <div class="wf-headline">TA 的服务 <span>3 项</span></div>
+          ${serviceRow()}
+          <div class="wf-headline">用户评价</div>
+          ${line()}${line('m')}
+        `,
+        act: action('联系师傅', '选择 TA · ¥119起'),
+        notes: [
+          '师傅主页用于建立信任：资质、接单量、好评率、可约时间、历史评价。',
+          '从服务详情进入时，底部直接「选择 TA」并返回。',
+          '联系入口使用平台隐私号，订单结束后失效。'
+        ]
+      }
+    ],
+
+    order: [
+      {
+        title: '确认订单 · 地址与时间',
+        tag: '核心页',
+        navBar: backNav('确认订单'),
+        body: `
+          <div class="wf-card" style="flex-direction:row;align-items:center;gap:6px">
+            <div style="width:18px;height:18px;border-radius:5px;background:#eceff3"></div>
+            <div class="wf-lines"><b>家 · 联系人 138****8000</b>${line('m')}<div class="wf-small">深圳 南山区 华润城润府 5栋1202</div></div>
+            <div style="color:#aab1bb">›</div>
+          </div>
+          <div class="wf-card">
+            <div class="wf-row"><div class="wf-thumb">图</div><div class="wf-lines"><b>空调挂机全拆深洗</b>${line('s')}<span class="wf-price">¥119 <em>/台</em></span></div></div>
+            <div class="wf-field"><span>数量</span><span>－　1 台　＋</span></div>
+          </div>
+          <div class="wf-headline">上门时间 <span>未来 7 天</span></div>
+          <div class="wf-dates">
+            <div class="wf-date on">今天<br/>11/18</div><div class="wf-date">明天<br/>11/19</div><div class="wf-date">后天<br/>11/20</div><div class="wf-date">周六<br/>11/21</div>
+          </div>
+          <div class="wf-slots">
+            <div class="wf-slot">08:00 已过</div><div class="wf-slot">10:00 已过</div><div class="wf-slot">13:00 已过</div>
+            <div class="wf-slot">15:00 已过</div><div class="wf-slot on">18:00-20:00</div><div class="wf-slot">明天</div>
+          </div>
+          <div class="wf-field"><span>服务师傅</span><span>陈建国 4.98 分　更换 ›</span></div>
+          <div class="wf-note">最晚提前 1 小时预约；师傅接单后会电话确认。</div>
+        `,
+        act: action('<span>合计 <b style="color:#4c5562">¥119</b></span>', '提交订单'),
+        notes: [
+          '地址卡是第一个可点击区域：进入地址簿选择或新增。',
+          '日期只展示 7 天，过期时段置灰，避免提交无效时间。',
+          '费用明细与底部合计联动；优惠券自动选最优。'
+        ]
+      },
+      {
+        title: '确认订单 · 手机号与协议',
+        tag: '核心页',
+        navBar: backNav('确认订单'),
+        body: `
+          <div class="wf-headline">联系人信息 <span>用于接收订单通知</span></div>
+          <div class="wf-form">
+            ${formField('联系人', '林小满')}
+            ${formField('手机号', '138 0013 8000', '<span class="wf-btn ghost" style="color:#079a56">微信获取</span>')}
+            <div class="wf-field" style="padding-left:0"><span style="color:#0e8f78">✓ 手机号已验证</span><span></span></div>
+          </div>
+          <div class="wf-field"><span>优惠券</span><span>-¥20　新人首单礼　›</span></div>
+          <div class="wf-field"><span>上门费</span><span>已包含　¥0</span></div>
+          <div class="wf-headline">备注 <span>选填</span></div>
+          <div class="wf-textarea">例如：家里有宠物，请带除毛工具…</div>
+          <div class="wf-headline">费用明细</div>
+          <div class="wf-summary">
+            <div><span>服务费</span><b>¥139</b></div>
+            <div><span>优惠券</span><b>-¥20</b></div>
+            <div class="total"><span>合计</span><b>¥119</b></div>
+          </div>
+          <div class="wf-check on">我已阅读并同意 <b>《用户协议》《隐私政策》《清洗服务协议》《取消与退款规则》</b></div>
+        `,
+        act: action('<span>合计 <b style="color:#4c5562">¥119</b></span>', '提交订单'),
+        notes: [
+          '「微信获取」模拟 getPhoneNumber；拒绝后仍可手动输入并通过验证码验证。',
+          '手机号修改后必须重新验证，提交时会再次校验格式与验证状态。',
+          '协议默认不勾选；未勾选提交会定位到协议区并提示。',
+          '未登录用户提交时弹出登录确认，登录后继续提交。'
+        ]
+      },
+      {
+        title: '收银台',
+        tag: '支付',
+        navBar: backNav('收银台', '客服'),
+        body: `
+          <div class="wf-card" style="flex-direction:row;align-items:center;justify-content:space-between;background:#fffaf2;border-color:#f2e5cf">
+            <span class="wf-small">剩余支付时间</span><span class="wf-small" style="color:#b7791f;font-weight:700">14:58</span>
+          </div>
+          <div class="wf-amount"><span>需支付</span><b>¥119</b><div class="line"></div><span style="color:#8b93a1">空调挂机全拆深洗 · 2匹 ×1台</span></div>
+          <div class="wf-card">
+            <div class="wf-field"><span>预约时间</span><span>今天 18:00-20:00</span></div>
+            <div class="wf-field"><span>服务地址</span><span>深圳 南山区…</span></div>
+            <div class="wf-field"><span>服务师傅</span><span>陈建国 · 已指定</span></div>
+            <div class="wf-field"><span>订单编号</span><span>JD2026…</span></div>
+          </div>
+          <div class="wf-headline">支付方式</div>
+          <div class="wf-methods">
+            <div class="wf-method on">微信支付　推荐</div>
+            <div class="wf-method">余额支付　演示余额 ¥999</div>
+          </div>
+          <div class="wf-note">演示环境不产生真实扣款；超时订单自动取消。</div>
+        `,
+        act: action('<span>需支付 <b style="color:#4c5562">¥119</b></span>', '立即支付'),
+        notes: [
+          '支付页只做确认与支付，不再允许修改订单；返回可去订单详情。',
+          '15 分钟支付倒计时，超时自动取消并释放优惠券。',
+          '支付方式至少两种，微信支付默认；余额支付明确标注「演示」。',
+          '指定师傅在支付前显示「已指定」，支付后进入待接单。'
+        ]
+      },
+      {
+        title: '支付成功',
+        tag: '结果',
+        navBar: nav('支付结果', { right: '订单' }),
+        body: `
+          <div class="wf-success">
+            <div class="wf-checkmark">✓</div>
+            <b>支付成功</b>
+            <div style="font-size:15px;font-weight:800;color:#4c5562">¥119</div>
+            <span>师傅已接单，将按预约时间上门</span>
+            <div style="display:flex;gap:5px;width:100%;margin-top:3px"><div class="wf-btn dark" style="flex:1">查看订单</div><div class="wf-btn ghost" style="flex:1">返回首页</div></div>
+          </div>
+          <div class="wf-provider">
+            <div class="wf-avatar"></div>
+            <div class="wf-lines"><b>陈建国 师傅已接单</b>${line('s')}</div>
+            <span class="wf-chip">查看</span>
+          </div>
+          <div class="wf-card">
+            <div class="wf-headline">空调挂机全拆深洗 <span>待接单</span></div>
+            <div class="wf-field"><span>预约时间</span><span>今天 18:00-20:00</span></div>
+            <div class="wf-field"><span>服务地址</span><span>深圳 南山区…</span></div>
+            <div class="wf-field"><span>联系人</span><span>林小满 138****8000</span></div>
+          </div>
+          <div class="wf-headline">接下来</div>
+          <div class="wf-small">① 师傅电话确认　② 可改期/联系师傅　③ 完成后评价得券</div>
+        `,
+        notes: [
+          '支付成功后立刻显示订单摘要与师傅状态，不再让用户猜测。',
+          '指定师傅时提示「已通知指定师傅」；平台优选时显示匹配中。',
+          '两个出口：查看订单 / 返回首页，保持路径可回退。'
+        ]
+      }
+    ],
+
+    status: [
+      {
+        title: '订单列表',
+        tag: 'Tab',
+        nav: '',
+        body: `
+          <div style="display:flex;justify-content:space-between;align-items:flex-end">
+            <div><b style="font-size:11px">我的订单</b><div class="wf-note">林小满，共 4 个订单</div></div>
+            <span class="wf-small">客服</span>
+          </div>
+          <div class="wf-chips" style="justify-content:space-between"><span class="wf-chip on">全部 4</span><span class="wf-chip">待付款</span><span class="wf-chip">待服务 1</span><span class="wf-chip">服务中</span><span class="wf-chip">待评价 1</span></div>
+          <div class="wf-card">
+            <div class="wf-headline">待服务 <span>查看详情 ›</span></div>
+            <div class="wf-row"><div class="wf-thumb">图</div><div class="wf-lines"><b>窗帘免拆清洗</b>${line('s')}<div class="wf-note">后天 10:00-12:00 · 张美玲</div></div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #f0f2f5;padding-top:4px"><span class="wf-price">¥236</span><span class="wf-btn ghost">查看进度</span><span class="wf-btn">联系师傅</span></div>
+          </div>
+          <div class="wf-card">
+            <div class="wf-headline">待评价 <span>查看详情 ›</span></div>
+            <div class="wf-row"><div class="wf-thumb">图</div><div class="wf-lines"><b>双人床垫深度除螨</b>${line('s')}<div class="wf-note">11月17日 · 李秀兰</div></div></div>
+            <div style="display:flex;justify-content:flex-end;gap:4px"><span class="wf-btn ghost">再次购买</span><span class="wf-btn dark">去评价</span></div>
+          </div>
+          <div class="wf-card">
+            <div class="wf-headline">已完成 <span>查看详情 ›</span></div>
+            <div class="wf-row"><div class="wf-thumb">图</div><div class="wf-lines">${line('s')}${line('s')}</div></div>
+          </div>
+        `,
+        tab: 'orders',
+        notes: [
+          '顶部按状态分组，数量徽标帮助用户快速定位。',
+          '每个订单只暴露最相关的 1-2 个操作，避免按钮拥挤。',
+          '空状态提供「去预约清洗」入口；未登录时显示登录引导。'
+        ]
+      },
+      {
+        title: '订单详情 · 待服务',
+        tag: '状态',
+        navBar: backNav('订单详情', '客服'),
+        body: `
+          <div class="wf-card" style="background:#e9ecf0;border:none;gap:3px">
+            <span class="wf-badge">订单状态</span>
+            <b style="font-size:14px">待服务</b>
+            <div class="wf-small">师傅已接单，请保持电话畅通</div>
+          </div>
+          <div class="wf-steps">
+            <div class="wf-step done">提交</div><div class="wf-step done">支付</div><div class="wf-step now">接单</div><div class="wf-step">上门</div><div class="wf-step">完成</div>
+          </div>
+          <div class="wf-card" style="flex-direction:row;align-items:center"><div style="width:18px;height:18px;border-radius:4px;background:#f1e5cc"></div><div class="wf-lines"><b>今天 18:00-20:00</b>${line('s')}</div><span class="wf-btn ghost">改期</span></div>
+          <div class="wf-headline">服务师傅 <span>查看主页</span></div>
+          ${providerRow('联系')}
+          <div class="wf-headline">服务信息</div>
+          <div class="wf-row"><div class="wf-thumb">图</div><div class="wf-lines"><b>空调挂机全拆深洗</b>${line('s')}<span class="wf-price">¥139</span></div></div>
+          <div class="wf-headline">服务地址与联系人</div>
+          <div class="wf-small">深圳 南山区 华润城润府 5栋1202\n林小满 · 138****8000</div>
+          <div class="wf-headline">订单进度</div>
+          <div class="wf-timeline">
+            <div class="wf-tl now"><i></i><div><b>张师傅已接单</b><em>今天 15:15</em></div></div>
+            <div class="wf-tl"><i></i><div><b>支付成功</b><em>今天 15:12</em></div></div>
+            <div class="wf-tl"><i></i><div><b>订单已提交</b><em>今天 15:10</em></div></div>
+          </div>
+        `,
+        act: action('联系师傅', '修改时间'),
+        notes: [
+          '状态色随订单阶段变化；顶部是唯一需要一眼看到的信息。',
+          '5 步进度条 + 时间线同时保留「当前状态」与「历史记录」。',
+          '改期、取消、联系客服等操作按状态可用性开放。',
+          '演示环境提供「推进状态」控制，真实业务由师傅端驱动。'
+        ]
+      },
+      {
+        title: '订单详情 · 服务中',
+        tag: '状态',
+        navBar: backNav('订单详情', '客服'),
+        body: `
+          <div class="wf-card" style="background:#e9ecf0;border:none;gap:3px">
+            <span class="wf-badge">订单状态</span>
+            <b style="font-size:14px">服务中</b>
+            <div class="wf-small">师傅正在清洁，有问题可随时联系</div>
+          </div>
+          <div class="wf-steps">
+            <div class="wf-step done">提交</div><div class="wf-step done">支付</div><div class="wf-step done">接单</div><div class="wf-step now">服务</div><div class="wf-step">完成</div>
+          </div>
+          <div class="wf-card">
+            <div class="wf-headline">服务进度 <span>30 分钟前更新</span></div>
+            <div class="wf-timeline">
+              <div class="wf-tl now"><i></i><div><b>师傅开始服务</b><em>今天 10:05</em></div></div>
+              <div class="wf-tl"><i></i><div><b>师傅已出发</b><em>今天 09:40</em></div></div>
+              <div class="wf-tl"><i></i><div><b>师傅已接单</b><em>今天 08:20</em></div></div>
+            </div>
+          </div>
+          <div class="wf-card">
+            <div class="wf-headline">费用明细</div>
+            <div class="wf-summary"><div><span>服务费</span><b>¥139</b></div><div><span>优惠券</span><b>-¥20</b></div><div class="total"><span>实付</span><b>¥119</b></div></div>
+          </div>
+          <div class="wf-field"><span>申请售后 / 联系客服 / 查看协议</span><span>›</span></div>
+        `,
+        act: action('联系师傅', '确认服务完成'),
+        notes: [
+          '服务中不允许直接取消，取消规则在协议中说明。',
+          '「确认服务完成」进入待评价；有争议时引导先联系客服。',
+          '售后、协议与客服入口常驻在页面底部，不藏在设置中。'
+        ]
+      },
+      {
+        title: '评价服务',
+        tag: '售后',
+        navBar: backNav('评价服务'),
+        body: `
+          <div class="wf-card" style="flex-direction:row;align-items:center;gap:6px"><div class="wf-thumb">图</div><div class="wf-lines"><b>空调挂机全拆深洗</b>${line('s')}<div class="wf-small">陈建国 师傅 · 金牌清洗师</div></div></div>
+          <div class="wf-headline">这次服务怎么样？<span>非常满意</span></div>
+          <div class="wf-stars">★★★★★</div>
+          <div class="wf-tagrow"><span class="wf-tag on">准时上门</span><span class="wf-tag">服务专业</span><span class="wf-tag on">清洗彻底</span><span class="wf-tag">态度很好</span></div>
+          <div class="wf-headline">说说你的体验 <span>0/200</span></div>
+          <div class="wf-textarea">师傅是否准时？清洗效果如何？</div>
+          <div class="wf-field"><span>添加图片</span><span>选填 · 暂不支持</span></div>
+          <div class="wf-field"><span>匿名评价</span><span>关闭</span></div>
+          <div class="wf-card" style="background:#fffaf2;border-color:#f2e5cf"><b style="font-size:7px">评价完成可得 5 元无门槛券</b><div class="wf-small">提交后自动到账，30 天内有效</div></div>
+        `,
+        act: action('', '提交评价'),
+        notes: [
+          '默认 5 星但可修改；评分是必填项。',
+          '标签与匿名评价降低填写成本，文字选填。',
+          '评价成功后订单进入已完成，并发放奖励券。',
+          '评价内容回流到服务详情与师傅主页（演示数据）。'
+        ]
+      }
+    ],
+
+    mine: [
+      {
+        title: '我的 · 已登录',
+        tag: 'Tab',
+        nav: '',
+        body: `
+          <div class="wf-mine-head">
+            <div class="wf-avatar"></div>
+            <div class="wf-lines"><b>林小满　Lv.2</b>${line('s')}<div class="wf-small">138****8000 ✓</div></div>
+          </div>
+          <div class="wf-stats">
+            <div class="wf-stat"><b>2</b>已完成</div><div class="wf-stat"><b>0</b>收藏</div><div class="wf-stat"><b>4</b>可用券</div><div class="wf-stat"><b>¥20</b>节省</div>
+          </div>
+          <div class="wf-card">
+            <div class="wf-headline">我的订单 <span>全部订单 ›</span></div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;text-align:center;font-size:5.5px;color:#8f97a3">
+              <div><div class="wf-avatar" style="width:18px;height:18px;margin:0 auto 2px"></div>待付款</div>
+              <div><div class="wf-avatar" style="width:18px;height:18px;margin:0 auto 2px"></div>待服务</div>
+              <div><div class="wf-avatar" style="width:18px;height:18px;margin:0 auto 2px"></div>服务中</div>
+              <div><div class="wf-avatar" style="width:18px;height:18px;margin:0 auto 2px"></div>待评价</div>
+            </div>
+          </div>
+          <div class="wf-card">
+            <div class="wf-headline">我的服务</div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;text-align:center;font-size:5.5px;color:#8f97a3">
+              <div><div class="wf-avatar" style="width:18px;height:18px;margin:0 auto 2px"></div>地址</div>
+              <div><div class="wf-avatar" style="width:18px;height:18px;margin:0 auto 2px"></div>优惠券</div>
+              <div><div class="wf-avatar" style="width:18px;height:18px;margin:0 auto 2px"></div>收藏</div>
+              <div><div class="wf-avatar" style="width:18px;height:18px;margin:0 auto 2px"></div>客服</div>
+            </div>
+          </div>
+          <div class="wf-menu"><div>服务保障</div><div>协议中心</div><div>关于净到家</div><div>退出登录</div></div>
+          <div class="wf-note">未登录态：头像与昵称显示「点击登录 / 注册」，订单与优惠券数量为 0，点击受保护入口先登录。</div>
+        `,
+        tab: 'mine',
+        notes: [
+          '个人信息、订单概览、服务入口、设置四层结构。',
+          '未登录时隐藏数字徽标，所有账户数据归零，避免演示数据穿帮。',
+          '协议中心、服务保障、客服都是「可发现」的，不埋在二级设置里。'
+        ]
+      },
+      {
+        title: '地址管理',
+        tag: '资料',
+        navBar: backNav('地址管理', '＋'),
+        body: `
+          <div class="wf-address">
+            <div class="row"><span class="wf-chip on">家</span><b>林小满　138 0013 8000</b><span class="wf-chip">默认</span></div>
+            ${line('m')}<div class="wf-small">深圳 南山区 粤海街道 华润城润府 5栋1202</div>
+            <div style="display:flex;justify-content:flex-end;gap:7px;border-top:1px solid #f0f2f5;padding-top:4px;font-size:5.5px;color:#9aa1ac">编辑　删除</div>
+          </div>
+          <div class="wf-address">
+            <div class="row"><span class="wf-chip">公司</span><b>林小满　138 0013 8000</b></div>
+            ${line('m')}<div class="wf-small">深圳 福田区 平安金融中心 A座 22层</div>
+            <div style="display:flex;justify-content:flex-end;gap:7px;border-top:1px solid #f0f2f5;padding-top:4px;font-size:5.5px;color:#9aa1ac">设为默认　编辑　删除</div>
+          </div>
+          <div class="wf-address">
+            <div class="row"><span class="wf-chip">父母家</span><b>林建国　139 0013 9000</b></div>
+            ${line('m')}<div class="wf-small">广州 天河区 正佳广场东塔 1801</div>
+          </div>
+          <div class="wf-card" style="background:#fffaf2;border-color:#f2e5cf"><div class="wf-small">地址仅用于上门服务；师傅只能看到必要信息。不同城市的地址可分别保存。</div></div>
+        `,
+        act: action('', '＋ 新增服务地址'),
+        notes: [
+          '选择模式：从结算页进入后点击地址卡即选中并返回。',
+          '新增地址时支持切换城市、区域、标签与设为默认。',
+          '删除需要二次确认；历史订单中的地址快照不受影响。'
+        ]
+      },
+      {
+        title: '新增 / 编辑地址',
+        tag: '表单',
+        navBar: backNav('新增地址'),
+        body: `
+          <div class="wf-card" style="gap:0;padding:7px 9px">
+            ${formField('联系人', '请填写')}
+            ${formField('手机号', '师傅联系你的号码')}
+            ${formField('所在城市', '深圳　已开通 ›')}
+            ${formField('所在区域', '南山区 ›')}
+            <div class="wf-field" style="align-items:flex-start"><span>详细地址</span><span style="text-align:right;max-width:65%">小区/楼栋/门牌号</span></div>
+            <div class="wf-field"><span>地址标签</span><span>家　公司　父母家　其他</span></div>
+            <div class="wf-field"><span>设为默认地址</span><span>○</span></div>
+          </div>
+          <div class="wf-note">校验：联系人必填、手机号 11 位、区域必选、详细地址至少 3 个字。</div>
+        `,
+        act: action('', '保存并使用此地址'),
+        notes: [
+          '字段采用「标签 + 值」的行式结构，符合小程序表单习惯。',
+          '城市与区域用底部选择器，避免键盘遮挡；手机号可复用授权号码。',
+          '从结算页新增时，保存后直接回到确认订单并自动选中新地址。'
+        ]
+      },
+      {
+        title: '选择城市',
+        tag: '定位',
+        navBar: backNav('选择城市'),
+        body: `
+          <div class="wf-show" style="display:flex;gap:5px;align-items:center;background:#eef4ff;border-radius:6px;padding:6px;font-size:5.8px;color:#5d78a8">切换城市后展示该城市可服务项目</div>
+          <div class="wf-search">搜索城市名称或拼音</div>
+          <div class="wf-provider" style="padding:6px"><div class="wf-avatar"></div><div class="wf-lines"><b>当前城市 · 深圳</b>${line('s')}</div><span class="wf-btn ghost">重新定位</span></div>
+          <div class="wf-headline">热门城市</div>
+          <div class="wf-city-hot"><span>北京</span><span>成都</span><span>上海</span><span>广州</span><span>杭州</span><span>武汉</span><span>深圳</span><span>西安</span></div>
+          <div class="wf-headline">全部城市 <span>27</span></div>
+          <div class="wf-letter">B</div><div class="wf-city-list"><span>北京</span><span></span></div>
+          <div class="wf-letter">C</div><div class="wf-city-list"><span>成都</span><span>重庆</span><span>长沙</span><span></span></div>
+          <div class="wf-letter">G</div><div class="wf-city-list"><span>广州</span><span>贵阳</span></div>
+          <div class="wf-note">右侧字母索引，点击滚动到对应分组</div>
+        `,
+        notes: [
+          '定位城市与手动选择状态要明确区分，支持重新定位。',
+          '热门城市 + 全量城市 + 字母索引，兼顾效率与可查找性。',
+          '地址编辑中的城市选择复用同一套数据，但不会修改首页城市。'
+        ]
+      },
+      {
+        title: '优惠券',
+        tag: '资产',
+        navBar: backNav('我的优惠券', '规则'),
+        body: `
+          <div class="wf-card" style="background:#e9ecf0;border:none">
+            <span class="wf-small">可用优惠券</span>
+            <div style="display:flex;align-items:baseline;gap:4px"><b style="font-size:18px;color:#4c5562">4</b><span class="wf-small">张</span><span class="wf-badge">最高省 ¥30</span></div>
+          </div>
+          <div class="wf-chips"><span class="wf-chip on">可用 4</span><span class="wf-chip">已使用 1</span><span class="wf-chip">已过期 1</span></div>
+          ${[
+            ['5','评价奖励券','无门槛'],
+            ['30','换季清洗券','满 199 可用'],
+            ['15','空调清洗专享券','满 119 可用'],
+            ['10','窗帘清洗立减券','满 99 可用']
+          ].map(([v,t,n]) => `
+            <div class="wf-card" style="flex-direction:row;align-items:center;gap:7px">
+              <div style="width:38px;text-align:center;border-right:1px dashed #e3e6eb;padding-right:5px"><b style="font-size:13px;color:#b83a36">¥${v}</b><div class="wf-note">${n}</div></div>
+              <div class="wf-lines"><b>${t}</b>${line('s')}<div class="wf-small">点击去使用</div></div>
+            </div>`).join('')}
+        `,
+        notes: [
+          '优惠券分「可用 / 已使用 / 已过期」，状态与订单联动。',
+          '券面信息包含面额、门槛、适用范围、有效期。',
+          '下单自动选最优券；取消订单后券按有效期退回。'
+        ]
+      },
+      {
+        title: '消息',
+        tag: '通知',
+        navBar: backNav('消息', '全部已读'),
+        body: `
+          <div class="wf-chips"><span class="wf-chip on">全部</span><span class="wf-chip">订单</span><span class="wf-chip">活动</span><span class="wf-chip">系统</span></div>
+          ${[
+            ['感谢你的评价','5 元无门槛券已到账','刚刚'],
+            ['陈建国 师傅已接单','预约时间 今天 18:00-20:00','刚刚'],
+            ['支付成功，正在匹配师傅','预计 1 分钟内接单','刚刚'],
+            ['服务已完成，去评价一下吧','双人床垫深度除螨','昨天 11:35'],
+            ['换季清洗季，满 199 减 30','优惠券已放入账户','11月15日']
+          ].map(([t,b,time]) => `
+            <div class="wf-notice">
+              <div class="wf-lines"><b>${t}</b><div class="wf-small">${b}</div><div class="wf-note">${time}</div></div>
+              <span class="wf-chip" style="align-self:flex-start">未读</span>
+            </div>`).join('')}
+        `,
+        notes: [
+          '订单状态变化自动生成消息，作为电话通知之外的兜底。',
+          '未读徽标与底部 Tab、首页铃铛同步。',
+          '活动消息可跳转优惠券；订单消息可跳转详情。'
+        ]
+      },
+      {
+        title: '协议中心',
+        tag: '合规',
+        navBar: backNav('协议与规则'),
+        body: `
+          <div class="wf-card" style="flex-direction:row;align-items:center;gap:7px"><div class="wf-thumb">图</div><div class="wf-lines"><b>服务协议与规则</b>${line('m')}</div></div>
+          <div class="wf-menu">
+            <div>净到家用户协议　更新于 2026.11.1</div>
+            <div>净到家隐私政策　更新于 2026.11.1</div>
+            <div>净到家平台服务协议　更新于 2026.11.1</div>
+            <div>清洗服务协议　更新于 2026.11.1</div>
+            <div>取消与退款规则　更新于 2026.11.1</div>
+            <div>服务保障说明　更新于 2026.11.1</div>
+          </div>
+          <div class="wf-card" style="background:#fffaf2;border-color:#f2e5cf"><div class="wf-small">演示文本，参考行业规则编写，不构成真实法律文件。</div></div>
+        `,
+        notes: [
+          '协议集中管理：用户协议、隐私、平台、清洗、退款、保障。',
+          '结算页可局部打开协议，关闭后不丢失表单状态。',
+          '协议详情为全屏抽屉，底部固定「我已阅读并知晓」。'
+        ]
+      },
+      {
+        title: '登录 / 手机号授权',
+        tag: '账号',
+        navBar: nav('', { right: '' }),
+        body: `
+          <div class="wf-login">
+            <div class="wf-logo"></div>
+            <b>净到家</b><span>专业清洗，安心到家</span>
+            <div style="display:flex;gap:5px;margin:5px 0">
+              <div style="width:45px;height:45px;border-radius:50%;border:1px dashed #cdd3db;background:#f4f5f7"></div>
+              <div style="width:45px;height:45px;border-radius:50%;border:1px dashed #cdd3db;background:#f4f5f7"></div>
+              <div style="width:45px;height:45px;border-radius:50%;border:1px dashed #cdd3db;background:#f4f5f7"></div>
+            </div>
+          </div>
+          <div class="wf-card" style="gap:5px">
+            <div class="wf-headline">微信登录　手机号登录</div>
+            <div class="wf-btn dark" style="height:24px">微信一键登录</div>
+            <div class="wf-note">登录后可再授权手机号</div>
+          </div>
+          <div class="wf-check">我已阅读并同意 <b>《用户协议》《隐私政策》</b></div>
+          <div class="wf-sheet">
+            <div class="wf-headline">微信授权 <span>模拟</span></div>
+            <div class="wf-small">「净到家」申请获取你的手机号</div>
+            <div class="wf-field"><span>本机号码</span><span>138 **** 8000</span></div>
+            <div style="display:flex;gap:5px"><div class="wf-btn ghost" style="flex:1">拒绝</div><div class="wf-btn dark" style="flex:1">允许</div></div>
+          </div>
+        `,
+        notes: [
+          '登录不是首屏强阻塞，浏览服务不需要登录。',
+          '支付/下单前才要求登录；微信登录后再按需获取手机号。',
+          '手机号授权弹窗模拟小程序 getPhoneNumber，并提示演示性质。',
+          '手动输入手机号时，短信验证码为演示 123456。'
+        ]
+      },
+      {
+        title: '联系客服',
+        tag: '服务',
+        navBar: backNav('联系客服'),
+        body: `
+          <div class="wf-card" style="background:#e9ecf0;border:none">
+            <b style="font-size:10px;color:#4c5562">净到家客服</b>
+            <div class="wf-small">在线服务中 · 8:00-22:00</div>
+            <div style="display:flex;gap:5px;margin-top:4px"><div class="wf-btn dark" style="flex:1">在线客服</div><div class="wf-btn" style="flex:1">电话</div></div>
+          </div>
+          <div class="wf-headline">快速咨询</div>
+          <div class="wf-grid2">
+            <div class="wf-card" style="padding:6px">${line('s')}</div><div class="wf-card" style="padding:6px">${line('s')}</div>
+            <div class="wf-card" style="padding:6px">${line('s')}</div><div class="wf-card" style="padding:6px">${line('s')}</div>
+          </div>
+          <div class="wf-headline">常见问题</div>
+          <div class="wf-accordions"><div class="wf-accordion">预约后可以改时间吗？</div><div class="wf-accordion">取消订单会扣钱吗？</div><div class="wf-accordion">清洗效果不满意怎么办？</div><div class="wf-accordion">可以开发票吗？</div></div>
+          <div class="wf-sheet"><div class="wf-headline">在线客服 <span>模拟对话</span></div><div class="wf-bubble" style="background:#f4f5f7;border-radius:5px;padding:5px;font-size:6px;color:#7c8592">你好，我是客服小净，有什么可以帮你？</div><div class="wf-field" style="margin-top:4px"><span>输入消息…</span><span>发送</span></div></div>
+        `,
+        notes: [
+          '客服入口在「我的」、订单详情、服务详情多处可达。',
+          '常见问题优先自助，在线客服作为兜底。',
+          '客服对话为演示回复，不产生真实工单。'
+        ]
+      }
+    ]
+  };
+
+  const allTitles = {
+    browse: '入口与浏览',
+    order: '下单与支付',
+    status: '订单与售后',
+    mine: '我的与设置'
+  };
+  const gridMap = { browse: 'grid-browse', order: 'grid-order', status: 'grid-status', mine: 'grid-mine' };
+  let n = 1;
+  Object.entries(screens).forEach(([group, list]) => {
+    const grid = document.getElementById(gridMap[group]);
+    list.forEach((s) => {
+      const card = document.createElement('article');
+      card.className = 'card';
+      const body = phone(s.body, { tab: s.tab, act: s.act, navBar: s.navBar ?? s.nav ?? '' });
+      card.innerHTML = `
+        <div class="card-head">
+          <div class="card-title"><span class="card-no">${String(n).padStart(2, '0')}</span><h3>${s.title}</h3></div>
+          <span class="card-tag">${s.tag}</span>
+        </div>
+        ${body}
+        <ul class="notes">
+          ${s.notes.map((note, i) => `<li><i>${i + 1}</i><span>${note}</span></li>`).join('')}
+        </ul>`;
+      grid.appendChild(card);
+      n += 1;
+    });
+  });
+</script>
+</body>
+</html>

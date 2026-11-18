@@ -1,0 +1,27 @@
+import { chromium } from 'playwright-core';
+const browser = await chromium.launch({ channel: 'chrome', headless: true });
+const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1.5, locale: 'zh-CN', isMobile: true, hasTouch: true });
+const page = await ctx.newPage();
+const errors = [];
+page.on('pageerror', e => errors.push(e.message));
+page.on('console', m => { if (m.type()==='error' && !m.text().includes('favicon')) errors.push(m.text()); });
+await page.goto('http://127.0.0.1:5273/#/orders', { waitUntil: 'networkidle' });
+await page.waitForTimeout(800);
+await page.getByRole('button', { name: '微信一键登录' }).click();
+await page.waitForTimeout(3200);
+await page.screenshot({ path: 'screenshots/70-orders-final.png' });
+await page.goto('http://127.0.0.1:5273/#/mine', { waitUntil: 'networkidle' });
+await page.waitForTimeout(1200);
+await page.screenshot({ path: 'screenshots/71-mine-final.png' });
+await page.goto('http://127.0.0.1:5273/#/service/sofa', { waitUntil: 'networkidle' });
+await page.waitForTimeout(800);
+await page.screenshot({ path: 'screenshots/72-sofa-list-final.png' });
+
+const dctx = await browser.newContext({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1.4, locale: 'zh-CN' });
+const dp = await dctx.newPage();
+await dp.goto('http://127.0.0.1:5273/wireframes.html', { waitUntil: 'networkidle' });
+await dp.waitForTimeout(500);
+await dp.screenshot({ path: 'screenshots/40-wireframes-top.png' });
+await dp.screenshot({ path: 'screenshots/41-wireframes-full.png', fullPage: true });
+console.log('errors', errors);
+await browser.close();

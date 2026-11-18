@@ -1,0 +1,16 @@
+import { chromium } from 'playwright-core';
+const browser = await chromium.launch({ channel: 'chrome', headless: true });
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 1100 }, deviceScaleFactor: 1.3, locale: 'zh-CN' });
+const page = await ctx.newPage();
+const errors = [];
+page.on('pageerror', e => errors.push(e.message));
+page.on('console', m => { if (m.type()==='error') errors.push(m.text()); });
+await page.goto('http://127.0.0.1:5273/wireframes.html', { waitUntil: 'networkidle' });
+await page.waitForTimeout(600);
+console.log('cards:', await page.locator('.card').count());
+await page.screenshot({ path: 'screenshots/40-wireframes-top.png' });
+await page.screenshot({ path: 'screenshots/41-wireframes-full.png', fullPage: true });
+const box = await page.locator('.card').first().boundingBox();
+console.log('first card box', box);
+console.log('errors', errors);
+await browser.close();
